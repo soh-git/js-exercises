@@ -67,13 +67,13 @@ return "array" == type
 
 
 function type_check_v2(val, condition) {
-
+const TYPE="type", ENUM="enum"
 for (const key in condition) {
-  if(key=="type"){
-    if(!type_check_v1(val, condition["type"]) ) return false
+  if(key==TYPE){
+    if(!type_check_v1(val, condition[TYPE]) ) return false
   }
-  if(key=="enum"){
-    if(!condition["enum"].includes(val))return false
+  if(key==ENUM){
+    if(!condition[ENUM].includes(val))return false
   }
 }
 return true
