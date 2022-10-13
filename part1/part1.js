@@ -65,6 +65,7 @@ return "array" == type
 
 }
 
+
 function type_check_v2(val, condition) {
 
 for (const key in condition) {
