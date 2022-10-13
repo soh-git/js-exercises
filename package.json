@@ -1,0 +1,15 @@
+{
+  "name": "js-exercises",
+  "version": "1.0.0",
+  "description": "Javascript exercises with tests",
+  "main": "index.js",
+  "author": "Dylan Correia <dcorreia@wedigital.garden>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2"
+  }
+}
