@@ -19,7 +19,7 @@ const arrayDiff = (arr,arr2) => {
 };
 
 const combinations = () => {
-  console.log(arguments)
+
 return Array.from(arguments).reduce((a,b)=>a*b,0)
 };
 
