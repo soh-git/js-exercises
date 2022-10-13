@@ -1,11 +1,27 @@
 class Mapi  {}
 
-const getHashTags = () => null;
-const removeDuplicate = () => null;
-const intersection = () => null;
-const arrayDiff = () => null;
+const getHashTags = (str) => {
+  str = Array.from(new Set( str.split(" ")) ).sort((a,b)=> b.length-a.length)
+  str.length=3
+  
+  return str.map(w=> "#"+ w.toLowerCase())
+  
+};
+const removeDuplicate = (nbs) => {
+  return Array.from(new Set( nbs) )
+};
+const intersection = (arr,arr2) =>{
+  return removeDuplicate( arr.filter(x=> arr2.includes(x) ))
+};
+const arrayDiff = (arr,arr2) => {
+  
+  return  [... arr.filter(x=> !arr2.includes(x) ),...arr2.filter(x=> !arr.includes(x) )]
+};
 
-const combinations = () => null;
+const combinations = () => {
+  console.log(arguments)
+return Array.from(arguments).reduce((a,b)=>a*b,0)
+};
 
 const fiscalCode = () => null;
 
