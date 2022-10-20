@@ -1,58 +1,92 @@
 const { type_check_v1 } = require("../part1/part1");
 
+// class Mapi {
+//   size;
+//   mapi = []
+//   constructor(arr) {
+//     arr.forEach(a => this.mapi.push([a[0], a[1]]))
+//     this.updateSize()
+//   }
+//   set(key, elt) {
+//     key = "" + key
+//     if (this.has(key)) this.delete(key)
+
+
+//     this.mapi.push([key, elt])
+//     this.mapi.sort((a, b) => {
+
+//       return ("" + a[0]).localeCompare(("" + b[0]), undefined, {
+//         numeric: true,
+//         sensitivity: 'base'
+//       })
+//     })
+//     this.updateSize()
+
+//   }
+//   get(key) {
+//     return this.mapi.filter(m => m[0] == key)[0][1]
+//   }
+//   delete(key) {
+//     this.mapi = this.mapi.filter(m => m[0] != key)
+//     this.updateSize()
+
+//   }
+//   has(key) {
+//     key = "" + key
+
+//     return this.keys().includes(key)
+//   }
+//   keys() {
+//     let arr = []
+//     this.mapi.forEach(o => {
+//       arr.push(o[0])
+//     });
+//     return arr
+//   }
+//   values() {
+//     let arr = []
+//     this.mapi.forEach(o => {
+//       arr.push(o[1])
+//     });
+//     return arr
+//   }
+//   updateSize() {
+//     this.size = this.mapi.length
+//   }
+// }
 class Mapi {
-  size;
-  mapi = []
-  constructor(arr) {
-    arr.forEach(a => this.mapi.push([a[0], a[1]]))
-    this.updateSize()
-  }
-  set(key, elt) {
-    key = "" + key
-    if (this.has(key)) this.delete(key)
-
-
-    this.mapi.push([key, elt])
-    this.mapi.sort((a, b) => {
-
-      return ("" + a[0]).localeCompare(("" + b[0]), undefined, {
-        numeric: true,
-        sensitivity: 'base'
-      })
-    })
-    this.updateSize()
+  constructor(list){
+    this.list =  Object.fromEntries(list)
+    this.size = Object.keys(this.list).length
 
   }
-  get(key) {
-    return this.mapi.filter(m => m[0] == key)[0][1]
-  }
-  delete(key) {
-    this.mapi = this.mapi.filter(m => m[0] != key)
-    this.updateSize()
+  set(key,elt){
+    
+    this.list[key]=elt
+    this.size = Object.keys(this.list).length
 
   }
-  has(key) {
-    key = "" + key
+  delete(key){
+    delete this.list[key]
+    this.size = Object.keys(this.list).length
+  }
+  get(key){
+    return this.list[key]
+  }
+  has(key){
+    return key in this.list
 
-    return this.keys().includes(key)
   }
-  keys() {
-    let arr = []
-    this.mapi.forEach(o => {
-      arr.push(o[0])
-    });
-    return arr
+  keys(){
+    return Object.keys(this.list)
+
   }
-  values() {
-    let arr = []
-    this.mapi.forEach(o => {
-      arr.push(o[1])
-    });
-    return arr
+  values(){
+    return Object.values(this.list)
   }
-  updateSize() {
-    this.size = this.mapi.length
-  }
+  
+
+
 }
 
 const getHashTags = (str) => Array.from(new Set(str.split(" "))).sort((a, b) => b.length - a.length).map(w => "#" + w.toLowerCase()).slice(0, 3);
@@ -92,6 +126,7 @@ const fiscalCode = (person) => {
   if (code2.length > 3) code2 = code2.slice(0, 1) + code2.slice(2, code2.length)
 
   if (code2.length < 3) code2 += person.name.split('').filter(l => voyelles.includes(l)).join('').slice(0, 3).padEnd(3, "X")
+
 
 
   code.push(code2.toUpperCase())
