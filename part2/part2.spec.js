@@ -195,7 +195,7 @@ describe("PART 2", () => {
       const timeExecution = endTime - startTime;
       expect(result).toEqual(students);
       expect(timeExecution).toBeGreaterThanOrEqual(1000);
-      expect(timeExecution).toBeLessThan(4000);
+      expect(timeExecution).toBeLessThan(2000);
     });
 
     it("Test 2", async () => {
@@ -204,8 +204,8 @@ describe("PART 2", () => {
       const endTime = Date.now();
       const timeExecution = endTime - startTime;
       expect(result).toEqual(courses);
-      expect(timeExecution).toBeGreaterThanOrEqual(1000);
-      expect(timeExecution).toBeLessThan(2000);
+      expect(timeExecution).toBeGreaterThanOrEqual(2000);
+      expect(timeExecution).toBeLessThan(4000);
     });
 
     it("Test 3", async () => {
