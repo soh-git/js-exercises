@@ -56,7 +56,7 @@ const { type_check_v1 } = require("../part1/part1");
 // }
 class Mapi {
   constructor(list){
-    this.list =  Object.fromEntries(list)
+    this.list = list ? Object.fromEntries(list) :{}
     this.size = Object.keys(this.list).length
 
   }
@@ -90,53 +90,34 @@ class Mapi {
 }
 
 const getHashTags = (str) => Array.from(new Set(str.split(" "))).sort((a, b) => b.length - a.length).map(w => "#" + w.toLowerCase()).slice(0, 3);
-const removeDuplicate = (tab) => Array.from(new Set(tab));
-const intersection = (arr, arr2) => {
-  return removeDuplicate(arr.filter(x => arr2.includes(x)))
-};
+
+const removeDuplicate = (tab) => [...new Set(tab)];
+
+
+
+
+const intersection = (arr, arr2) => removeDuplicate(arr.filter(x => arr2.includes(x)));
 const arrayDiff = (first, second) => [...first.filter(x => !second.includes(x)), ...second.filter(x => !first.includes(x))];
 
 const combinations = (...args) => args.reduce((a, b) => a * b, 1);
 
 const fiscalCode = (person) => {
-  let voyelles = ["a", "e", "i", "u", "o"];
-  let mois = {
-    Janvier: 'A',
-    Février: 'B',
-    Mars: 'C',
-    Avril: 'D',
-    Mai: 'E',
-    Juin: 'H',
-    Juillet: 'L',
-    Août: 'M',
-    Septembre: 'P',
-    Octobre: 'R',
-    Novembre: 'S',
-    Décembre: 'T'
-  }
-
+  const voyelles = ["a", "e", "i", "u", "o"];
+  const mois = { Janvier: 'A',Février: 'B',Mars: 'C',Avril: 'D',Mai: 'E',Juin: 'H',Juillet: 'L',Août: 'M',Septembre: 'P',Octobre: 'R',Novembre: 'S',Décembre: 'T'}
   let code = []
-
-  code.push(person.surname.split('').sort((a, b) => {
-    if (!voyelles.includes(a.toLowerCase()) && voyelles.includes(b.toLowerCase())) return -1
-    return 0
-  }).slice(0, 3).join('').padEnd(3, "X").toUpperCase())
-
+  code.push(person.surname.split('').sort((a, b) => {if (!voyelles.includes(a.toLowerCase()) && voyelles.includes(b.toLowerCase())) return -1}).slice(0, 3).join('').padEnd(3, "X").toUpperCase())
   let code2 = person.name.split('').filter(l => !voyelles.includes(l)).join('')
   if (code2.length > 3) code2 = code2.slice(0, 1) + code2.slice(2, code2.length)
-
   if (code2.length < 3) code2 += person.name.split('').filter(l => voyelles.includes(l)).join('').slice(0, 3).padEnd(3, "X")
-
-
-
   code.push(code2.toUpperCase())
   code.push(person.dob.split('/')[2].slice(2, 4))
-
   code.push(mois[Object.keys(mois)[person.dob.split('/')[1] - 1]])
   if (person.gender == "M") code.push(person.dob.split('/')[0].padStart(2, "0"))
   else code.push(parseInt(person.dob.split('/')[0]) + 40)
   return code.join('')
 };
+
+
 const cm = (arr, NB) => {
   for (let nb = 0; nb < arr.length; nb++)  if (NB % arr[nb] != 0) return false
   return true
